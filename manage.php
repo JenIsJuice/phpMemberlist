@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html lang="en">
 
   <head>
@@ -44,7 +48,7 @@
     <div class="well bs-component">
       <!-- Default panel contents -->
       <div class="panel-heading">
-      <legend class="navbar-brand" style="color: #111111">所有雷姆</legend>
+      <legend class="navbar-brand" style="color: #111111">所有會員</legend>
       </div>
 
       <!-- Table -->
@@ -58,48 +62,50 @@
           <tr>
             <th class="col-md-1">編號</th>
             <th class="col-md-2">照片</th>
-            <th class="col-md-2">姓名</th>
-            <th class="col-md-2">電話</th>
+            <th class="col-md-2">角色名稱</th>
+         <!--    <th class="col-md-2">電話</th>
             <th class="col-md-2">信箱</th>
-            <th class="col-md-4">地址</th>
-            <th class="col-md-1"></th>
-            <th class="col-md-1"></th>
+            <th class="col-md-4">地址</th> -->
+ <!--            <th class="col-md-1"></th>
+            <th class="col-md-1"></th> -->
           </tr>
         </thead>
         <tbody>
-
+<?php 
+ include("key.php");
+?>
 <?php
 
-// $con = new PDO('mysql:host=localhost;dbname=guest;charset=utf8', 'guest', 'guest');
+// Create connection
+$con = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+} 
+mysqli_set_charset($con,"utf8");//make chinese work
+$sql = "SELECT * FROM 403411233_de_ciquo";
+$result = $con->query($sql);
 
-$con = mysql_connect("localhost","guest","guest") or die("errr!");
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "<tr>";
+      echo "<form action=\"delete_finish.php\" method=\"POST\">";
+      echo "<td>".'1'."</td>";
+      echo "<td><img class=\"img-thumbnail\" src=\"http://dl.profile.line-cdn.net/0h66L3hMnHaRlxSkTg8-8WTk0PZ3QGZG9RCXhzK1RMNHoPLS8bTCRxeQBDNSxdKS9GTCRyfFNCYixU\"  style=\"width: 80px; word-break:break-all;\"></td>";
+      echo "<td>" . $row['name'] . "</td>";
+      echo "<td>" . $row['phone'] . "</td>";
+      echo "<td>" . $row['email'] . "</td>";
+      echo "<td>" . $row['address'] . "</td>";
+      // echo "<td><button type=\"button\" class=\"btn info\">變態</button>";
+      echo "<td><a href=\"update.php?id=".$row['id']."\" class=\"btn btn-success\">修改</a>";
+      echo "<a href=\"delete_finish.php?id=".$row['id']."\" class=\"btn btn-default\">刪除</td>";
+      echo "</tr>";
+    }
+} else {
+    echo "0 results";
+}
 
-mysql_select_db("guest", $con);
-
-
-$result = mysql_query("SELECT * FROM 403411233_de_ciquo");
-
-while($row = mysql_fetch_array($result))
-  {echo "<tr>";
-    echo "<form action=\"delete_finish.php\" method=\"POST\">";
-  
-  echo "<td>".$row['id']."</td>";
-  echo "<td><img class=\"img-thumbnail\" src=\"123\"  style=\"width: 80px; height: 80px;\"></td>";
-  echo "<td>" . $row['name'] . "</td>";
-  echo "<td>" . $row['phone'] . "</td>";
-  echo "<td>" . $row['email'] . "</td>";
-  echo "<td>" . $row['address'] . "</td>";
-  echo "<td><button type=\"button\" class=\"btn info\">變態</button>";
-
-  echo "<td><a href=\"update.php?id=".$row['id']."\" class=\"btn btn-success\">修改</a>";
-  echo "<a href=\"delete_finish.php?id=".$row['id']."\" class=\"btn btn-default\">刪除</td>";
-
-  echo "</tr>";
-  }
 mysql_close($con);
 ?>
 

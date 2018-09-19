@@ -17,7 +17,7 @@ $stm->bindParam(3,$email);
 $stm->bindParam(4,$address);
 
  $stm->execute();
-header("Location:manage.php"); 
+header("Location:home.php"); 
 ?>
 
  <!-- echo '<meta http-equiv = REFRESH CONTENT = 2;url = http://163.13.127.236/guest/105students/403411233/boot/home.php>'; -->

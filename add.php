@@ -59,7 +59,7 @@ session_start();
             <div class="well bs-component">
               <form action="save.php" method="POST" style="margin:10px 0 0 0;" class="form-horizontal">
                 <fieldset class="info">
-                  <legend class="navbar-brand">新增雷姆</legend>
+                  <legend class="navbar-brand">新增會員</legend>
                   
                   <!--      
                   <form name="input" action="home.asp" method="get" style="margin:10px 0 0 0;">
@@ -90,8 +90,8 @@ session_start();
                   </div>
                   <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                      <button type="reset" class="btn btn-default">去你EMT</button>
-                      <button type="submit" class="btn btn-info" value="Submit">丟你雷姆</button>
+                      <button type="reset" class="btn btn-default">取消</button>
+                      <button type="submit" class="btn btn-info" value="Submit">新增</button>
                     </div>
                   </div>
                 </fieldset>
